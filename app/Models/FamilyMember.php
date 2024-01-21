@@ -25,4 +25,5 @@ class FamilyMember extends Model
     {
         return $this->belongsTo(User::class, 'relation_name_id');
     }
+
 }

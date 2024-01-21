@@ -9,6 +9,7 @@
             <th>Family Name</th>
             <th>relation_name_id</th>
             <th>Relations</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -21,9 +22,27 @@
             <td>
                 {{ $familyMember->relationship->name }}
             </td>
+            <td>
+                        <a href="{{ route('family.edit', $familyMember->id) }}">Edit</a>
+                        <form method="POST" action="{{ route('family.delete', $familyMember->id) }}" onsubmit="return confirm('Are you sure you want to delete this family member?')">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit">Delete</button>
+                    </form>
+                    </td>
           </tr>
           @endforeach
         </tbody>
       </table>
 
+      <script>
+        document.addEventListener('livewire:load', function () {
+            Livewire.on('familyMemberDeleted', data => {
+                window.location.href = data.route;
+            });
+        });
+    </script>
+
 </div>
+

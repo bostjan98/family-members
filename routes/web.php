@@ -25,4 +25,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
-Route::get('/family-members', FamilyMembers::class)->name('family-members');
+Route::livewire('/family-members', FamilyMembers::class)->name('family-members');
+Route::get('/family-members/{id}/edit', [FamilyMembers::class, 'edit'])->name('family.edit');
+Route::put('/family-members/{id}', [FamilyMembers::class, 'update'])->name('family.update');
+Route::delete('/family-members/{id}', [FamilyMembers::class, 'deleteFamilyMember'])->name('family.delete');
