@@ -3,6 +3,8 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\FamilyMembers;
+use App\Http\Controllers\FamilyMemberController;
+use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,10 @@ Route::get('/dashboard', function () {
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
-Route::livewire('/family-members', FamilyMembers::class)->name('family-members');
+Route::get('/family-members', FamilyMembers::class)->name('family-members');
 Route::get('/family-members/{id}/edit', [FamilyMembers::class, 'edit'])->name('family.edit');
 Route::put('/family-members/{id}', [FamilyMembers::class, 'update'])->name('family.update');
 Route::delete('/family-members/{id}', [FamilyMembers::class, 'deleteFamilyMember'])->name('family.delete');
+
+Route::get('/family-members/create', [FamilyMemberController::class, 'createForm'])->name('family-members.create');
+Route::post('/family-members/create', [FamilyMemberController::class, 'create']);

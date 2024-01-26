@@ -9,6 +9,8 @@ class Relationship extends Model
 {
     use HasFactory;
 
+    protected $table = 'relationships';
+
     protected $fillable = ['name'];
 
     public function familyMembers()

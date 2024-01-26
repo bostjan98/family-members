@@ -2,31 +2,44 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use Illuminate\Http\Request;
 use App\Models\FamilyMember;
+use Livewire\Component;
 
 class FamilyMembers extends Component
 {
     public $familyMembers; // Define the variable to be used in the view
+    public $name;
+    public $relation_name_id;
+    public $createFormVisible = false;
 
-    public function mount()
+    // Listen for Livewire event
+    protected $listeners = ['familyMemberCreated' => 'refreshComponent'];
+
+    // Method to refresh the component
+    public function refreshComponent()
     {
+        // Fetch family members
         $this->familyMembers = FamilyMember::with(['user', 'relationship'])->get();
     }
 
     public function render()
     {
-        return view('livewire.family-members')
-        ->layout('layouts.app')
-        ->extends('livewire.layouts.app')
-        ->section('content');
+        // Fetch family members
+        $this->familyMembers = FamilyMember::with(['user', 'relationship'])->get();
+
+        return view('livewire.family-members')->layout('livewire.layouts.app');
+    }
+
+    public function redirectTo()
+    {
+        return redirect()->route('family-members')->with('success', 'Family member created successfully');
     }
 
     public function edit($id)
     {
         $familyMember = FamilyMember::find($id);
-    
+
         // Add any necessary data to the view
         return view('livewire.family-members-edit', compact('familyMember'));
     }
