@@ -10,16 +10,46 @@
             @csrf
             @method('put')
 
-            <!-- Your form fields go here, for example: -->
+            <!-- Select User -->
             <div>
-                <label for="name">Name:</label>
-                <input type="text" name="name" value="{{ $familyMember->name }}">
+                <label for="user_id">Select User:</label>
+                <select id="user_id" name="user_id" required>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}" {{ $familyMember->user_id == $user->id ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
-            <!-- Add other form fields for editing family member details -->
+            <!-- Select Relation Name -->
+            <div>
+                <label for="relation_name_id">Select Relation Name:</label>
+                <select id="relation_name_id" name="relation_name_id" required>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}" {{ $familyMember->relation_name_id == $user->id ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Select Relationship -->
+            <div>
+                <label for="relationship_id">Select Relationship:</label>
+                <select id="relationship_id" name="relationship_id" required>
+                    @foreach($relationships as $relationship)
+                        <option value="{{ $relationship->id }}" {{ $familyMember->relationship_id == $relationship->id ? 'selected' : '' }}>
+                            {{ $relationship->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Your other form fields go here -->
 
             <div>
-                <button type="submit">Update</button>
+                <button type="submit">Update Family Member</button>
             </div>
         </form>
     </div>
